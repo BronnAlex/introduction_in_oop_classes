@@ -29,7 +29,7 @@ def created_object_from_json(data_json):
     return categories_list
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     home_dir = Path.cwd()
     row_data = read_json(home_dir)
     user_data = created_object_from_json(row_data)
