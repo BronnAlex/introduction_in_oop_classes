@@ -10,6 +10,11 @@ def class_products():
 
 
 @pytest.fixture
+def class_products_2():
+    return Product(name="Iphone 15", description="512GB, Gray space", price=210000.0, quantity=8)
+
+
+@pytest.fixture
 def category():
     return Category(
         "Смартфоны",
@@ -25,5 +30,6 @@ def category():
 def category_not_empty_product():
     return Category(
         "Супер смартфоны",
-        "Супер смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        "Супер смартфоны, как средство не только коммуникации, "
+        "но и получения дополнительных функций для удобства жизни",
     )
