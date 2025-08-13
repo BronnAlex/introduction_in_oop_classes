@@ -12,7 +12,7 @@ def test_product_init(class_products):
 
 def test_category_init(category, category_not_empty_product):
     """Тестируем инициализацию класса Category из фикстур с готовым экземпляром,
-        через вызов атрибутов объекта и самого класса"""
+    через вызов атрибутов объекта и самого класса"""
     assert category.name == "Смартфоны"
     assert (
         category.description
@@ -80,3 +80,26 @@ def test_product_update_sette(capsys, class_products):
     class_products.private_price = -10
     message = capsys.readouterr()
     assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
+
+
+def test_product_str(class_products):
+    """Тест на строковое представление экземпл Product"""
+    # print(class_products) >>> ввод pytest -s
+    assert str(class_products) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_category_str(category):
+    """Тест на строковое представление экземпл Category"""
+
+    assert str(category) == "Смартфоны, количество продуктов: 13"
+
+
+def test_product_add(class_products, class_products_2):
+    assert class_products + class_products_2 == 2580000.0
+
+
+def test_category_new_property(category):
+    """Тустируем новый геттер product в классе Category"""
+    assert category.add_product == (
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n" "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
+    )
