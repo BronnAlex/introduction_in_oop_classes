@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -96,6 +98,11 @@ def test_category_str(category):
 
 def test_product_add(class_products, class_products_2):
     assert class_products + class_products_2 == 2580000.0
+
+
+def test_product_add_error(class_products):
+    with pytest.raises(TypeError):
+        class_products + 1
 
 
 def test_category_new_property(category):

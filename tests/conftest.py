@@ -1,5 +1,6 @@
 import pytest
 from src.product import Product, Category
+from src.successor_classes_product import Smartphone, LawnGrass
 
 
 @pytest.fixture
@@ -33,3 +34,17 @@ def category_not_empty_product():
         "Супер смартфоны, как средство не только коммуникации, "
         "но и получения дополнительных функций для удобства жизни",
     )
+
+
+# Создал одну фикстуру на класс наследник по категории смартфонов и ее дважды исп в тесте сложения
+@pytest.fixture
+def smartphone_product():
+    return Smartphone(
+        "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5, "S23 Ultra", 256, "Серый"
+    )
+
+
+# Создал одну фикстуру на класс наследник по категории газонной травы и ее дважды исп в тесте сложения
+@pytest.fixture
+def lawngrass_product():
+    return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
