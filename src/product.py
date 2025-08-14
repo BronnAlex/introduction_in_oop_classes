@@ -35,11 +35,12 @@ class Product:
     def __add__(self, other):
         """Магический метод сложения, для определения
         полной стоимости необходимых товаров, которые на складе"""
-
-        amount_first_product = self.quantity * self.__price
-        amount_second_product = other.quantity * other.__price
-        total_amount_price = amount_first_product + amount_second_product
-        return total_amount_price
+        if type(other) is Product:
+            amount_first_product = self.quantity * self.__price
+            amount_second_product = other.quantity * other.__price
+            total_amount_price = amount_first_product + amount_second_product
+            return total_amount_price
+        raise TypeError
 
 
 class Category:
