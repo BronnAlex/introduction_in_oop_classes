@@ -1,12 +1,18 @@
-class Product:
+from src.base_product_abc_class import BaseProduct
+from src.print_mixin import PrintMixin
+
+
+class Product(BaseProduct, PrintMixin):
     """Класс, для обозначения товара и его количества"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
         """Инициализация класса и свойств атрибутов"""
         self.name = name
         self.description = description
-        self.__price = price
+        self._price = price
         self.quantity = quantity
+        super().__init__()
+
 
     @classmethod
     def new_product(cls, product_from_dict):
@@ -15,7 +21,7 @@ class Product:
     @property
     def private_price(self):
         """Геттер для приватного атрибута __price"""
-        return self.__price
+        return self._price
 
     @private_price.setter
     def private_price(self, new_price):
@@ -23,21 +29,21 @@ class Product:
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
             return
-        self.__price = new_price
+        self._price = new_price
 
     #     Название продукта, 80 руб. Остаток: 15 шт.
     def __str__(self):
         """Магический метод, Для класса Product
         выводит строковое отображение в следующем виде:
         Название продукта, 80 руб. Остаток: 15 шт."""
-        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+        return f"{self.name}, {self._price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
         """Магический метод сложения, для определения
         полной стоимости необходимых товаров, которые на складе"""
         if isinstance(other, Product):
-            amount_first_product = self.quantity * self.__price
-            amount_second_product = other.quantity * other.__price
+            amount_first_product = self.quantity * self._price
+            amount_second_product = other.quantity * other._price
             total_amount_price = amount_first_product + amount_second_product
             return total_amount_price
         raise TypeError
