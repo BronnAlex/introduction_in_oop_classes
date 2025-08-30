@@ -13,7 +13,6 @@ class Product(BaseProduct, PrintMixin):
         self.quantity = quantity
         super().__init__()
 
-
     @classmethod
     def new_product(cls, product_from_dict):
         return cls(**product_from_dict)
@@ -162,13 +161,19 @@ if __name__ == "__main__":  # pragma: no cover
 
     # Создание 4-го экземпляра класса Product
     product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
-    # category2 = Category(
-    #     "Телевизоры",
-    #     "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-    #     [product4],
-    # )
-    # print(category2.name)
-    # print(category2.description)
+
+    # Создание второго экземпляра класса Category
+    category2 = Category(
+        "Телевизоры",
+        "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+        [product4],
+    )
+
+    # Проверка работы атрибутов у экземпляра класса Category
+    print(category2.name)
+    print(category2.description)
+    print(len(category2.products))
+    print(category2.products)
 
     # Добавляем экзем класса Product в Класс Category через сеттер add_product
     category1.add_product = product4

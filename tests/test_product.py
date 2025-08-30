@@ -81,7 +81,9 @@ def test_product_update_sette(capsys, class_products):
     """Тестируем сеттер из класса Product(обновленные данные)"""
     class_products.private_price = -10
     message = capsys.readouterr()
-    assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
+    # При добавлении abs класса и миксин класса
+    # В данный тест добавил следующее .split("\n")[-1] и все заработало
+    assert message.out.strip().split("\n")[-1] == "Цена не должна быть нулевая или отрицательная"
 
 
 def test_product_str(class_products):
