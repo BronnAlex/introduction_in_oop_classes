@@ -112,3 +112,34 @@ def test_category_new_property(category):
     assert category.add_product == (
         "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n" "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
     )
+
+
+def test_avg_price(category, category_without_product):
+    """Тестируем метод получения средней цены всех товаров
+    а также при условии что товаров вообще нет"""
+    assert category.avg_price_all_goods() == 195000
+    assert category_without_product.avg_price_all_goods() == 0
+
+
+def test_custom_exception(capsys, category):
+    """"Тест, проверки вывода сообщений при количестве равном нулю
+    Проверка своего рода исключений"""
+    assert len(category.add_product_in_list) == 2  # Количество категорий товаров (product1, product2)
+
+    quantity_full = Product("Iphone", "13 Pro max", 110000.0, 4)
+    category.add_product = quantity_full  # метод add_product из сеттера в классе Category
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Товар успешно добавлен"
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления товара завершена."
+
+    quantity_zero = Product("Iphone", "13 Pro max", 110000.0, 0)
+    category.add_product = quantity_zero  # метод add_product из сеттера в классе Category
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Нельзя добавлять товар с нулевым количеством"
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления товара завершена."
+
+
+def test_init_product_zero_error():
+    """Тест, на выброс исключения при отрицательном количестве"""
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("Iphone", "13 Pro max", 110000.0, -1)
